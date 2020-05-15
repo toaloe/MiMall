@@ -5,11 +5,22 @@
 </template>
 
 <script>
-
+import storage from './storage/index'
 // import jsonp from 'jsonp'
 export default {
   name: 'App',
   components: {
+  },
+  data(){
+    return {
+
+    }
+  },
+  mounted(){
+    // storage.setItem('a',1);
+    // storage.setItem('suer',{a:1});
+    // storage.setItem('abc',{a:1},'suer');
+    storage.clear('a','user');
   }
 }
 </script>
