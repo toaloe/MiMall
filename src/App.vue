@@ -13,7 +13,7 @@ export default {
   },
   data(){
     return {
-      res:{}
+      // res:{}
 
     }
   },
@@ -31,20 +31,14 @@ export default {
     //   this.res = res
     // })
     //本地集成mock.js实现数据mock
-    this.axios.get('/user/login').then((res)=>{
-      this.res = res
-    })
+    // this.axios.get('/user/login').then((res)=>{
+    //   this.res = res
+    // })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import './assets/scss/reset.scss';
+/* @import './assets/scss/config.scss'; */
 </style>
