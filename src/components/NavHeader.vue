@@ -9,9 +9,10 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">注册</a>
-          <a href="javascript:;" class="my-cart">
+          <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="!username" @click="login">登录</a>
+          <a href="javascript:;" v-if="username">我的订单</a>
+          <a href="javascript:;" class="my-cart" @click="goToCart">
             <span class="icon-cart"></span>
             购物车
           </a>
@@ -28,58 +29,13 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product">
-                  <a href="" target="_blank">
+                <li class="product" v-for="(item,index) in phoneList" :key="index">
+                  <a :href="'/#/product/'+ item.id" target="_blank">
                     <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
+                      <img :src="item.mainImage" :alt="item.subtitle">
                     </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
-                    </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
-                    </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
-                    </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
-                    </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82ddffd7562c54f9166fa876c143ff22.png?thumb=1&w=160&h=110&f=webp&q=90" alt="">
-                    </div>
-                    <div class="pro-name">小米10pro</div>
-                    <div class="pro-price">4999元</div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
                   </a>
                 </li>
               </ul>
@@ -87,11 +43,35 @@
           </div>
           <div class="item-menu">
             <span>RedMi红米手机</span>
-            <div class="children"></div>
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item,index) in redList" :key="index">
+                  <a :href="'/#/product/'+ item.id" target="_blank">
+                    <div class="pro-img">
+                      <img :src="item.mainImage" :alt="item.subtitle">
+                    </div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="item-menu">
             <span>电视</span>
-            <div class="children"></div>
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item,index) in TVList" :key="index">
+                  <a :href="'/#/product/'+ item.id" target="_blank">
+                    <div class="pro-img">
+                      <img :src="item.mainImage" :alt="item.subtitle">
+                    </div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="header-search">
@@ -107,7 +87,46 @@
 
 <script>
 export default {
-  name: 'nav-header'
+  name: 'nav-header',
+  data(){
+    return{
+      username:'aloe',
+      list:[],
+      phoneList:[],
+      redList:[],
+      TVList:[],
+    }
+  },
+  filters:{
+    currency(val) {
+      if (!val) return '0.00';
+      return '￥'+val.toFixed(2)+'元';
+    }
+  },
+  mounted(){
+    this.getProductList();
+  },
+  methods:{
+    login(){
+      this.$router.push('/login');
+    },
+    goToCart(){
+      this.$router.push('/cart')
+    },
+    getProductList(){
+      this.axios.get('mock/user/products.json').then((res)=>{
+        if(res.list.length>6){
+         this.phoneList = res.list.slice(0,6);
+       }
+       if(res.redlist.length>6){
+         this.redList = res.redlist.slice(0,6);
+       }
+       if(res.TVlist.length>6){
+         this.TVList = res.TVlist.slice(0,6);
+       }
+      })
+    }
+  }
 }
 </script>
 
@@ -188,6 +207,7 @@ export default {
               color: $colorA;
               .children{
                 height: 220px;
+                opacity: 1;
               }
             }
             .children{
@@ -195,15 +215,34 @@ export default {
               top: 112px;
               left: 0;
               width: 1226px;
+              height: 0;
+              opacity: 0;
+              overflow: hidden;
               border-top: 1px solid #E5E5E5;
               box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
+              z-index: 10;
+              background-color: #ffffff;
+              transition: all .5s;
               .product{
+                position: relative;
                 float: left;
                 width: 16.6%;
                 height: 220px;
                 font-size: 12px;
                 line-height: 12px;
                 text-align: center;
+                &:before{
+                  content: ' ';
+                  position: absolute;
+                  top: 28px;
+                  right: 0;
+                  border-left: 1px solid $colorF;
+                  height: 100px;
+                  width: 1px;
+                }
+                &:last-child:before{
+                  display: none;
+                }
                 a{
                   display: inline-block;
                 }
