@@ -3,6 +3,7 @@ import router from './router'
 import axios from 'axios'
 import Vueaxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
+import VueCookie from 'vue-cookie'
 import App from './App.vue'
 // import env from './env'
 // mock开关
@@ -29,6 +30,7 @@ axios.interceptors.response.use(function(response){
 })
 
 Vue.use(Vueaxios,axios)
+Vue.use(VueCookie)
 Vue.use(VueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg'
 })
