@@ -1,13 +1,4 @@
 {
   "status": 0,
-  "data": {
-    "id": 12,
-    "username": "admin1",
-    "password":"admin1",
-    "email": "admin1@163.com",
-    "phone": null,
-    "role": 0,
-    "createTime": 1479048325000,
-    "updateTime": 1479048325000
-  }
+  "msg": "校验成功"
 }

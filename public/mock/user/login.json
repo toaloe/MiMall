@@ -2,8 +2,8 @@
   "status": 0,
   "data": {
       "id": 12,
-      "password":"",
-      "username": "aaa",
+      "password":"admin1",
+      "username": "admin1",
       "email": "aaa@163.com",
       "phone": null,
       "role": 0,

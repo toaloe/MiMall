@@ -80,7 +80,8 @@ export default {
         password
       }).then((res)=>{
         this.res=res;
-        this.$cookie.set('userId',res.id,{expires:'Session'});
+        this.$cookie.set('userId',res.id,{expires:'1M'});
+        //to-do保存用户名
         this.$router.push('/index');
         this.saveUserName(res.username);
         this.$router.push({
@@ -92,15 +93,15 @@ export default {
       })
     },
     ...mapActions(['saveUserName']),
-    // register(){
-    //   this.axios.post('/mock/user/register.json',{
-    //     username:'admin1',
-    //     password:'admin1',
-    //     email:'admin1@163.com'
-    //   }).then(()=>{
-    //     this.$message.success('注册成功');
-    //   })
-    // }
+    register(){
+      this.axios.post('/mock/user/register.json',{
+        username:'admin1',
+        password:'admin1',
+        email:'admin1@163.com'
+      }).then(()=>{
+        this.$message.success('注册成功');
+      })
+    }
   }
 }
 </script>
