@@ -55,27 +55,9 @@ export default {
     }
   },
   methods:{
-    // login(){
-    //   let { username,password } = this;
-    //   this.axios.post('/mock/user/login.json',{
-    //     username,
-    //     password
-    //   }).then((res)=>{
-    //     this.res=res;
-    //     this.$cookie.set('userId',res.id,{expires:'Session'});
-    //     this.$router.push('/index');
-    //     this.saveUserName(res.username);
-    //     this.$router.push({
-    //       name:'index',
-    //       params:{
-    //         from:'login'
-    //       }
-    //     });
-    //   })
-    // },
     login(){
       let { username,password } = this;
-      this.axios.post('mock/user/login.json',{
+      this.axios.post('/mock/user/login.json',{
         username,
         password
       }).then((res)=>{

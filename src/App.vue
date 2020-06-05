@@ -18,6 +18,8 @@ export default {
     }
   },
   mounted(){
+    this.getUser();
+    this.getCartCount();
     // storage.setItem('a',1);
     // storage.setItem('suer',{a:1});
     // storage.setItem('abc',{a:1},'suer');
@@ -34,6 +36,18 @@ export default {
     // this.axios.get('/user/login').then((res)=>{
     //   this.res = res
     // })
+  },
+  methods:{
+    getUser(){
+      this.axios.get('/mock/user/login.json').then(()=>{
+        //to-do保存到vuex里面
+      })
+    },
+    getCartCount(){
+      this.axios.get('/mock/user/prosum.json').then(()=>{
+        //to-do保存到vuex里面
+      })
+    }
   }
 }
 </script>
