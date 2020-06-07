@@ -14,7 +14,7 @@
           <a href="javascript:;" v-if="username">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goToCart">
             <span class="icon-cart"></span>
-            购物车
+            购物车({{cartCount}})
           </a>
         </div>
       </div>
@@ -86,19 +86,28 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: 'nav-header',
   data(){
     return{
-      username:'',
       list:[],
       phoneList:[],
       redList:[],
       TVList:[],
     }
   },
+  computed:{
+    // username(){
+    //   return this.$store.state.username;
+    // },
+    // cartCount(){
+    //   return this.$store.state.cartCount;
+    // }
+    ...mapState(['username','cartCount'])
+  },
   filters:{
-    currency(val) {
+    currency(val) { 
       if (!val) return '0.00';
       return '￥'+val.toFixed(2)+'元';
     }

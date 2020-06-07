@@ -39,13 +39,16 @@ export default {
   },
   methods:{
     getUser(){
-      this.axios.get('/mock/user/login.json').then(()=>{
+      this.axios.get('/mock/user/login.json').then((res)=>{
         //to-do保存到vuex里面
+        this.$store.dispatch('saveUserName',res.username);
       })
     },
+
     getCartCount(){
-      this.axios.get('/mock/user/prosum.json').then(()=>{
+      this.axios.get('/mock/user/prosum.json').then((res)=>{
         //to-do保存到vuex里面
+        this.$store.dispatch('saveCartCount',res);
       })
     }
   }

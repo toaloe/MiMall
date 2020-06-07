@@ -4,6 +4,7 @@ import axios from 'axios'
 import Vueaxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import store from './store'
 import App from './App.vue'
 // import env from './env'
 // mock开关
@@ -43,5 +44,6 @@ Vue.config.productionTip = false
 new Vue({
   // router 的名字与后面引入文件的名字一致时，可以只写一个
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
